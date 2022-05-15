@@ -4,4 +4,4 @@ export type getAllUsersResponseType = Promise<User[]>;
 
 export type getUserByIdResponseType = Promise<User>;
 
-export type addUseResponseType = Promise<string>;
+export type addUseResponseType = Promise<User>;

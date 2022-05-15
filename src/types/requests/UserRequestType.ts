@@ -1,4 +1,4 @@
-import { IsNotEmpty } from 'class-validator';
+import { IsNotEmpty, IsNumber } from 'class-validator';
 
 export class getUserByIdRequestType {
   @IsNotEmpty({
@@ -19,5 +19,6 @@ export class addUserBodyType {
     message: 'Age is required.',
     always: true,
   })
+  @IsNumber()
   age: number;
 }

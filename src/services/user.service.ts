@@ -38,6 +38,6 @@ export class UserService {
 
     await this.userRepository.save(newUser);
 
-    return `Hello ${body.name}, ${body.age}`;
+    return newUser;
   }
 }

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserModule } from './modules/users.module';
+import { IndexModule } from './modules/index.module';
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import { UserModule } from './modules/users.module';
       logger: 'advanced-console',
       logging: true,
     }),
-    UserModule,
+    IndexModule,
   ],
 })
 export class AppModule {}
