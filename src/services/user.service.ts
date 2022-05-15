@@ -3,12 +3,20 @@ import {
   addUserBodyType,
   getUserByIdRequestType,
 } from 'src/types/requests/UserRequestType';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import User from 'src/models/User.model';
+import { getAllUsersResponseType } from 'src/types/responses/UserResponseType';
 
 @Injectable()
 export class UserService {
-  getUsers() {
-    console.log();
-    return 'Users returned.';
+  constructor(
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
+  ) {}
+
+  async getUsers(): getAllUsersResponseType {
+    return await this.userRepository.find();
   }
 
   getUserById(params: getUserByIdRequestType): string {
