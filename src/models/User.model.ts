@@ -1,13 +1,26 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { IsNotEmpty } from 'class-validator';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()
 export default class User {
-  @PrimaryGeneratedColumn('increment')
+  @PrimaryGeneratedColumn('increment', {
+    type: 'integer',
+    name: 'id',
+  })
   id: number;
 
-  @Column()
+  @Column({
+    name: 'name',
+    type: 'varchar',
+    length: 30,
+  })
+  @IsNotEmpty()
   name: string;
 
-  @Column()
+  @Column({
+    name: 'age',
+    type: 'integer',
+  })
+  @IsNotEmpty()
   age: number;
 }
