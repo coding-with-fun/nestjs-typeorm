@@ -1,5 +1,3 @@
-export type getAllUsersRequestType = null;
-
 export type getUserByIdRequestType = {
   id: number;
 };

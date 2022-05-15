@@ -1,14 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import {
   addUserBodyType,
-  getAllUsersRequestType,
   getUserByIdRequestType,
 } from 'src/types/requests/UserRequestType';
 
 @Injectable()
 export class UserService {
-  getUsers(params: getAllUsersRequestType) {
-    console.log(params);
+  getUsers() {
+    console.log();
     return 'Users returned.';
   }
 

@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from 'src/services/user.service';
 import {
   addUserBodyType,
-  getAllUsersRequestType,
   getUserByIdRequestType,
 } from 'src/types/requests/UserRequestType';
 import {
@@ -11,16 +11,31 @@ import {
   getUserByIdResponseType,
 } from 'src/types/responses/UserResponseType';
 
+@ApiTags('user')
 @Controller('user')
 export class UserController {
   constructor(private userService: UserService) {}
 
   @Get()
-  getUsers(@Param() params: getAllUsersRequestType): getAllUsersResponseType {
-    return this.userService.getUsers(params);
+  @ApiOperation({
+    summary: 'Get all users.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Record found.',
+  })
+  getUsers(): getAllUsersResponseType {
+    return this.userService.getUsers();
   }
 
   @Get(':id')
+  @ApiOperation({
+    summary: 'Get specific user.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Record found.',
+  })
   getUserById(
     @Param() params: getUserByIdRequestType,
   ): getUserByIdResponseType {
@@ -28,6 +43,13 @@ export class UserController {
   }
 
   @Post()
+  @ApiOperation({
+    summary: 'Create user.',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Record created.',
+  })
   createUser(@Body() body: addUserBodyType): addUseResponseType {
     return this.userService.createUser(body);
   }
