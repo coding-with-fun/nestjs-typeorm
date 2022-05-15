@@ -1,7 +1,7 @@
-import UserModel from 'src/models/User.model';
+import User from 'src/models/User.model';
 
-export type getAllUsersResponseType = Promise<UserModel[]>;
+export type getAllUsersResponseType = Promise<User[]>;
 
-export type getUserByIdResponseType = string;
+export type getUserByIdResponseType = Promise<User>;
 
-export type addUseResponseType = string;
+export type addUseResponseType = Promise<string>;

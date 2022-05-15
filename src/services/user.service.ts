@@ -6,7 +6,11 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import User from 'src/models/User.model';
-import { getAllUsersResponseType } from 'src/types/responses/UserResponseType';
+import {
+  addUseResponseType,
+  getAllUsersResponseType,
+  getUserByIdResponseType,
+} from 'src/types/responses/UserResponseType';
 
 @Injectable()
 export class UserService {
@@ -19,11 +23,21 @@ export class UserService {
     return await this.userRepository.find();
   }
 
-  getUserById(params: getUserByIdRequestType): string {
-    return `Hello ${params.id}!`;
+  async getUserById(params: getUserByIdRequestType): getUserByIdResponseType {
+    return await this.userRepository.findOne({
+      where: {
+        id: params.id,
+      },
+    });
   }
 
-  createUser(body: addUserBodyType) {
+  async createUser(body: addUserBodyType): addUseResponseType {
+    const newUser = new User();
+    newUser.name = body.name;
+    newUser.age = body.age;
+
+    await this.userRepository.save(newUser);
+
     return `Hello ${body.id}, ${body.name}, ${body.age}`;
   }
 }
