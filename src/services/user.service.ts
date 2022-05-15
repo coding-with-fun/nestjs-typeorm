@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import {
   addUserBodyType,
   getUserByIdRequestType,
+  getUsersRequestType,
 } from 'src/types/requests/UserRequestType';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -11,6 +12,7 @@ import {
   getAllUsersResponseType,
   getUserByIdResponseType,
 } from 'src/types/responses/UserResponseType';
+import { pagination } from './pagination.service';
 
 @Injectable()
 export class UserService {
@@ -19,8 +21,17 @@ export class UserService {
     private userRepository: Repository<User>,
   ) {}
 
-  async getUsers(): getAllUsersResponseType {
-    return await this.userRepository.find();
+  async getUsers(params: getUsersRequestType): getAllUsersResponseType {
+    const page = params.page || 1;
+    const limit = params.limit || 10;
+
+    // console.log(params, page, limit);
+
+    const [data, count] = await this.userRepository.findAndCount({
+      take: limit,
+      skip: (page - 1) * limit,
+    });
+    return pagination(data, count, page, limit);
   }
 
   async getUserById(params: getUserByIdRequestType): getUserByIdResponseType {

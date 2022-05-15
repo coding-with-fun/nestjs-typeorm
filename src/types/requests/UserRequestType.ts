@@ -1,4 +1,7 @@
 import { IsNotEmpty, IsNumber } from 'class-validator';
+import { paginationRequestType } from './PaginationRequestType';
+
+export class getUsersRequestType extends paginationRequestType {}
 
 export class getUserByIdRequestType {
   @IsNotEmpty({

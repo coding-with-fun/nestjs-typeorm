@@ -1,9 +1,10 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { UserService } from 'src/services/user.service';
 import {
   addUserBodyType,
   getUserByIdRequestType,
+  getUsersRequestType,
 } from 'src/types/requests/UserRequestType';
 import {
   addUseResponseType,
@@ -24,8 +25,8 @@ export class UserController {
     status: 200,
     description: 'Record found.',
   })
-  getUsers(): getAllUsersResponseType {
-    return this.userService.getUsers();
+  getUsers(@Query() query: getUsersRequestType): getAllUsersResponseType {
+    return this.userService.getUsers(query);
   }
 
   @Get(':id')
