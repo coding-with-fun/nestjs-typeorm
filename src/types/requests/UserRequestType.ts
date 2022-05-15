@@ -1,9 +1,23 @@
-export type getUserByIdRequestType = {
-  id: number;
-};
+import { IsNotEmpty } from 'class-validator';
 
-export type addUserBodyType = {
+export class getUserByIdRequestType {
+  @IsNotEmpty({
+    message: 'ID is required.',
+    always: true,
+  })
   id: number;
+}
+
+export class addUserBodyType {
+  @IsNotEmpty({
+    message: 'Name is required.',
+    always: true,
+  })
   name: string;
+
+  @IsNotEmpty({
+    message: 'Age is required.',
+    always: true,
+  })
   age: number;
-};
+}
